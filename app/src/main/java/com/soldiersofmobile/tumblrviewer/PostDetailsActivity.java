@@ -15,6 +15,11 @@ public class PostDetailsActivity extends AppCompatActivity {
         setContentView(R.layout.activity_post_details);
 
         String url = getIntent().getStringExtra(URL_EXTRA);
+
+        getSupportFragmentManager()
+                .beginTransaction()
+                .add(R.id.details_container, PostDetailsFragment.newInstance(url))
+                .commit();
     }
 
     public static Intent getIntent(
