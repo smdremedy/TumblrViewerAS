@@ -81,8 +81,14 @@ public class PostsListActivity extends AppCompatActivity
     @Override
     public void showPost(final String url) {
 
-        Intent intent = PostDetailsActivity.getIntent(this, url);
-        startActivity(intent);
+        if (!getResources().getBoolean(R.bool.is_tablet)) {
+            Intent intent = PostDetailsActivity.getIntent(this, url);
+            startActivity(intent);
+        } else {
+            getSupportFragmentManager().beginTransaction()
+                    .replace(R.id.details_container, PostDetailsFragment.newInstance(url))
+                    .commit();
+        }
     }
 
     private void showPosts(final String url) {
