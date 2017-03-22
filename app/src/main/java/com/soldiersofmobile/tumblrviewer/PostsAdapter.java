@@ -11,6 +11,8 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
+import com.soldiersofmobile.tumblrviewer.model.Photo;
 import com.soldiersofmobile.tumblrviewer.model.Post;
 
 import butterknife.BindView;
@@ -50,6 +52,13 @@ public class PostsAdapter extends BaseAdapter {
         Post post = getItem(position);
         ViewHolder viewHolder = (ViewHolder) view.getTag();
         viewHolder.itemText.setText(Html.fromHtml(post.getCaption()));
+        List<Photo> photos = post.getPhotos();
+        if (!photos.isEmpty()) {
+            Glide.with(parent.getContext())
+                    .load(photos.get(0).getOriginalSize().getUrl())
+                    .placeholder(R.mipmap.ic_launcher)
+                    .into(viewHolder.itemImage);
+        }
         return view;
     }
 
